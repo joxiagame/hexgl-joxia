@@ -215,13 +215,13 @@ bkcore.hexgl.HexGL.prototype.displayScore = function(f, l)
 
 	if(this.gameplay.result == this.gameplay.results.FINISH)
 	{
-		ds != undefined && (ds.innerHTML = "Finished!");
+		ds != undefined && (ds.innerHTML = "Terminé !");
 		// local record
 		if(typeof(Storage)!=="undefined")
 		{
 			if(localStorage['score-'+t+'-'+d] == undefined || localStorage['score-'+t+'-'+d] > f)
 			{
-				dr != undefined && (dr.innerHTML = "New local record!");
+				dr != undefined && (dr.innerHTML = "Nouveau record local !");
 				localStorage['score-'+t+'-'+d] = f;
 
 				// Export race data
@@ -229,18 +229,18 @@ bkcore.hexgl.HexGL.prototype.displayScore = function(f, l)
 			}
 			else
 			{
-				dr != undefined && (dr.innerHTML = "Well done!");
+				dr != undefined && (dr.innerHTML = "Bien joué !");
 			}
 		}
 		// ladder record
 		var p = bkcore.hexgl.Ladder.global[t][d][bkcore.hexgl.Ladder.global[t][d].length-2];
 		if(p != undefined && p['score'] > f)
 		{
-			dh != undefined && (dh.innerHTML = "You made it to the HOF!");
+			dh != undefined && (dh.innerHTML = "Tu entres au Panthéon !");
 		}
 		else
 		{
-			dh != undefined && (dh.innerHTML = "Hall Of Fame");
+			dh != undefined && (dh.innerHTML = "Panthéon");
 		}
 
 		dt != undefined && (dt.innerHTML = tf.m + ts[1] + tf.s + ts[2] + tf.ms);
@@ -253,13 +253,13 @@ bkcore.hexgl.HexGL.prototype.displayScore = function(f, l)
 	}
 	else
 	{
-		ds != undefined && (ds.innerHTML = "Destroyed!");
-		dr != undefined && (dr.innerHTML = "Maybe next time!");
-		dh != undefined && (dh.innerHTML = "Hall Of Fame");
-		dt != undefined && (dt.innerHTML = "None");
-		dl1 != undefined && (dl1.innerHTML = "None");
-		dl2 != undefined && (dl2.innerHTML = "None");
-		dl3 != undefined && (dl3.innerHTML = "None");
+		ds != undefined && (ds.innerHTML = "Détruit !");
+		dr != undefined && (dr.innerHTML = "Ce sera pour la prochaine fois !");
+		dh != undefined && (dh.innerHTML = "Panthéon");
+		dt != undefined && (dt.innerHTML = "Aucun");
+		dl1 != undefined && (dl1.innerHTML = "Aucun");
+		dl2 != undefined && (dl2.innerHTML = "Aucun");
+		dl3 != undefined && (dl3.innerHTML = "Aucun");
 	}
 
 	dd != undefined && (dd.innerHTML = d);
@@ -273,7 +273,7 @@ bkcore.hexgl.HexGL.prototype.displayScore = function(f, l)
 	bkcore.hexgl.Ladder.displayLadder('finish-ladder', t, d, 8);
 
 	if(this.manager.get('game').objects.lowFPS >= 999)
-		sl != undefined && (sl.innerHTML = 'Note: Your framerate was pretty low, you should try a lesser graphic setting!');
+		sl != undefined && (sl.innerHTML = 'Note : les images par seconde étaient basses, essaie une qualité graphique plus faible !');
 	else
 		sl != undefined && (sl.innerHTML = '');
 

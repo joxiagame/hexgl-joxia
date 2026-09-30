@@ -77,7 +77,7 @@ bkcore.hexgl.Gameplay = function(opts)
 				self.hud != null && self.hud.updateLap(self.lap, self.maxLaps);
 
 				if(self.lap == self.maxLaps)
-					self.hud != null && self.hud.display("Final lap", 0.5);
+					self.hud != null && self.hud.display("Dernier tour", 0.5);
 			}
 		}
 		else if(cp != -1 && cp != self.previousCheckPoint)
@@ -107,7 +107,7 @@ bkcore.hexgl.Gameplay.prototype.simu = function()
 {
 	this.lapTimes = [92300, 91250, 90365];
 	this.finishTime = this.lapTimes[0]+this.lapTimes[1]+this.lapTimes[2];
-	if(this.hud != null) this.hud.display("Finish");
+	if(this.hud != null) this.hud.display("Arrivée");
 	this.step = 100;
 	this.result = this.results.FINISH;
 	this.shipControls.active = false;
@@ -150,7 +150,7 @@ bkcore.hexgl.Gameplay.prototype.start = function(opts)
 	if(this.hud != null)
 	{
 		this.hud.resetTime();
-		this.hud.display("Get ready", 1);
+		this.hud.display("Prêt ?", 1);
 		this.hud.updateLap(this.lap, this.maxLaps);
 	}
 }
@@ -166,12 +166,12 @@ bkcore.hexgl.Gameplay.prototype.end = function(result)
 
 	if(result == this.results.FINISH)
 	{
-		if(this.hud != null) this.hud.display("Finish");
+		if(this.hud != null) this.hud.display("Arrivée");
 		this.step = 100;
 	}
 	else if(result == this.results.DESTROYED)
 	{
-		if(this.hud != null) this.hud.display("Destroyed");
+		if(this.hud != null) this.hud.display("Détruit");
 		this.step = 100;
 	}
 }
@@ -199,7 +199,7 @@ bkcore.hexgl.Gameplay.prototype.update = function()
 	}
 	else if(this.step == 3 && this.timer.time.elapsed >= 4*this.countDownDelay+this.startDelay)
 	{
-		if(this.hud != null) this.hud.display("Go", 0.5);
+		if(this.hud != null) this.hud.display("Partez !", 0.5);
 		this.step = 4;
 		this.timer.start();
 		

@@ -186,7 +186,7 @@ bkcore.hexgl.ShipControls = function(ctx)
 		{
 			if(!isServerConnected)
 			{
-				leapInfo.innerHTML = 'Waiting for the Leap Motion Controller server...'
+				leapInfo.innerHTML = 'En attente du serveur Leap Motion...'
 				leapInfo.style.display = 'block';
 			}
 			else if(lb.isConnected && lb.hasHands)
@@ -195,12 +195,12 @@ bkcore.hexgl.ShipControls = function(ctx)
 			}
 			else if(!lb.isConnected)
 			{
-				leapInfo.innerHTML = 'Please connect your Leap Motion Controller.'
+				leapInfo.innerHTML = 'Branche ton contrôleur Leap Motion.'
 				leapInfo.style.display = 'block';
 			}
 			else if(!lb.hasHands)
 			{
-				leapInfo.innerHTML = 'Put your hand over the Leap Motion Controller to play.'
+				leapInfo.innerHTML = 'Place ta main au-dessus du Leap Motion pour jouer.'
 				leapInfo.style.display = 'block';
 			}
 		}
