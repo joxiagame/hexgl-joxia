@@ -1,3 +1,7 @@
+<!-- joxia-credits -->
+> 🎮 **Fork Joxia Games** de [BKcore/HexGL](https://github.com/BKcore/HexGL) — jeu original de ses auteurs, licence **MIT** (fichier `LICENSE` d'origine conservé). Jouer : https://joxiagame.github.io/hexgl-joxia/ · Crédits : [`CREDITS.md`](CREDITS.md) · Liste source : [leereilly/games](https://github.com/leereilly/games)
+<!-- /joxia-credits -->
+
 HexGL
 =========
 
