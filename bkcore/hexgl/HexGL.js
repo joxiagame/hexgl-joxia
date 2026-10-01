@@ -189,6 +189,9 @@ bkcore.hexgl.HexGL.prototype.displayScore = function(f, l)
 		bkcore.Timer.msToTimeString(l[2])
 	];
 
+	// Joxia : temps de course (ms, le plus petit gagne) envoyé au classement du hub
+	if (this.gameplay.result == this.gameplay.results.FINISH && window.joxiaScore) window.joxiaScore(f);
+
 	if(this.gameover !== null)
 	{
 		this.gameover.style.display = "block";
@@ -225,7 +228,7 @@ bkcore.hexgl.HexGL.prototype.displayScore = function(f, l)
 				localStorage['score-'+t+'-'+d] = f;
 
 				// Export race data
-				localStorage['race-'+t+'-replay'] = JSON.Stringify(this.gameplay.raceData.export());
+				localStorage['race-'+t+'-replay'] = JSON.stringify(this.gameplay.raceData.export());
 			}
 			else
 			{
