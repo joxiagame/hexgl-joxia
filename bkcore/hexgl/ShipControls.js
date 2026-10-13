@@ -390,8 +390,9 @@ bkcore.hexgl.ShipControls.prototype.update = function(dt)
 
 		if(this.touchController != null)
 		{
-			angularAmount -= this.touchController.stickVector.x/100 * this.angularSpeed * dt;
-			rollAmount += this.touchController.stickVector.x/100 * this.rollAngle;
+			// Joxia : valeur normalisée [-1, 1] (stickVector.x/100 n'avait pas de limite)
+			angularAmount -= this.touchController.stickValue * this.angularSpeed * dt;
+			rollAmount += this.touchController.stickValue * this.rollAngle;
 		}
 		else if(this.orientationController != null)
 		{

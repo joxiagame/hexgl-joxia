@@ -35,6 +35,15 @@
       this.stickPos = new Vec2(0, 0);
       this.stickStartPos = new Vec2(0, 0);
       this.stickVector = new Vec2(0, 0);
+      // Joxia : direction normalisée [-1, 1] (zone morte, plafond, base qui suit le doigt) + joystick visible
+      this.stickValue = 0;
+      this.stickRadius = 70;
+      this.stickDead = 8;
+      this.stickBase = document.createElement('div');
+      this.stickBase.style.cssText = 'position:fixed;z-index:2147483000;width:' + (this.stickRadius * 2) + 'px;height:44px;margin:-22px 0 0 -' + this.stickRadius + 'px;' + 'border-radius:22px;border:2px solid rgba(255,255,255,.35);background:rgba(0,0,0,.25);pointer-events:none;display:none';
+      this.stickKnob = document.createElement('div');
+      this.stickKnob.style.cssText = 'position:absolute;top:50%;left:50%;width:36px;height:36px;margin:-18px 0 0 -18px;border-radius:50%;' + 'background:rgba(255,255,255,.7);box-shadow:0 0 10px rgba(0,200,255,.8)';
+      this.stickBase.appendChild(this.stickKnob);
       this.dom.addEventListener('touchstart', ((function(_this) {
         return function(e) {
           return _this.touchStart(e);
@@ -65,11 +74,12 @@
       _ref = event.changedTouches;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         touch = _ref[_i];
-        if (this.stickID < 0 && touch.clientX < this.stickMargin) {
+        if (this.stickID < 0 && touch.clientX < window.innerWidth / 2) {
           this.stickID = touch.identifier;
           this.stickStartPos.set(touch.clientX, touch.clientY);
           this.stickPos.copy(this.stickStartPos);
           this.stickVector.set(0, 0);
+          this.updateStick();
           continue;
         } else {
           if (typeof this.buttonCallback === "function") {
@@ -95,9 +105,9 @@
       _ref = event.changedTouches;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         touch = _ref[_i];
-        if (this.stickID === touch.identifier && touch.clientX < this.stickMargin) {
+        if (this.stickID === touch.identifier) {
           this.stickPos.set(touch.clientX, touch.clientY);
-          this.stickVector.copy(this.stickPos).substract(this.stickStartPos);
+          this.updateStick();
           break;
         }
       }
@@ -122,6 +132,8 @@
         if (this.stickID === touch.identifier) {
           this.stickID = -1;
           this.stickVector.set(0, 0);
+          this.stickValue = 0;
+          this.stickBase.style.display = 'none';
           break;
         } else {
           if (typeof this.buttonCallback === "function") {
@@ -130,6 +142,35 @@
         }
       }
       return false;
+    };
+
+    /*
+      Joxia : calcule la direction à partir du doigt.
+      - au-delà du rayon, la base suit le doigt : repartir dans l'autre sens est immédiat
+      - zone morte au centre, puis réponse progressive (fine près du centre, pleine au bord)
+      - plafonnée à 1 = virage clavier (l'original divisait par 100 px sans limite : virages incontrôlables)
+     */
+
+    TouchController.prototype.updateStick = function() {
+      var dx = this.stickPos.x - this.stickStartPos.x, R = this.stickRadius, a, v;
+      if (dx > R) {
+        this.stickStartPos.x = this.stickPos.x - R;
+        dx = R;
+      } else if (dx < -R) {
+        this.stickStartPos.x = this.stickPos.x + R;
+        dx = -R;
+      }
+      this.stickVector.set(dx, 0);
+      a = Math.max(0, Math.abs(dx) - this.stickDead) / (R - this.stickDead);
+      v = Math.min(1, a * (0.35 + 0.65 * a));
+      this.stickValue = dx < 0 ? -v : v;
+      this.stickBase.style.left = this.stickStartPos.x + 'px';
+      this.stickBase.style.top = this.stickStartPos.y + 'px';
+      if (this.stickBase.style.display !== 'block') {
+        document.body.appendChild(this.stickBase);
+        this.stickBase.style.display = 'block';
+      }
+      this.stickKnob.style.transform = 'translateX(' + dx + 'px)';
     };
 
     return TouchController;

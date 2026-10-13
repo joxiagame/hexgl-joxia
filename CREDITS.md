@@ -20,6 +20,7 @@ Ce dépôt est un fork, hébergé sur GitHub Pages pour le hub Joxia Games
 - `touch.js` du hub dans le `<head>` de `index.html` : bouton « Quitter » vers le hub, commandes tactiles (manette virtuelle qui simule le clavier, glisser au doigt) et adaptation à l'écran mobile ;
 - traduction française des textes du jeu (menus, messages, aide) ;
 - envoi du meilleur score du joueur connecté au classement du hub (`window.joxiaScore`, fourni par `tracker.js`) ;
+- commandes tactiles retravaillées (`TouchController.js`, `ShipControls.js`) : joystick visible, zone morte, direction progressive plafonnée à celle du clavier, base qui suit le doigt ;
 - `launch.js` / `launch.coffee` : qualité graphique « MID » par défaut sur écran tactile (au lieu de « VERY HIGH »).
 
 L'historique Git complet (commits des auteurs d'origine) est conservé.
